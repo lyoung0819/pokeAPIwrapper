@@ -4,12 +4,12 @@ from ascii_magic import AsciiArt
 
 class PokemonDeets:    
     
-    def __init__(self, name, height, weight, image, ability):
+    def __init__(self, name, height, weight, image, ability_x):
         self.name = name.title()
         self.height = height
         self.weight = weight
         self.image = image
-        self.ability = ability
+        self.ability_x = ability_x
 
     def __str__(self):
         art = AsciiArt.from_url(self.image)
@@ -18,7 +18,7 @@ class PokemonDeets:
     {self.name}: 
     height: {self.height}
     weight: {self.weight}
-    abilities: {self.ability}
+    abilities: {self.ability_x}
     {art_str}
     """
     
@@ -46,7 +46,8 @@ class PokemonAPI:
             image = pokemon_data.get('sprites').get('front_default')
             ability_place = pokemon_data.get('abilities')
             ability = [ x['ability'] for x in ability_place ]
-            poke_obj = PokemonDeets(name, height, weight, image, ability) 
+            ability_x = [ x['name'] for x in ability ]
+            poke_obj = PokemonDeets(name, height, weight, image, ability_x) 
             return poke_obj
         else:
             print(f'I\'m sorry, we could not find data on {poke_name}')
@@ -76,3 +77,11 @@ main()
 #  ability = [ x['ability'] for x in ability_place ]
 #  RETURNS: 
 ## [{'name': 'torrent', 'url': 'https://pokeapi.co/api/v2/ability/67/'}, {'name': 'rain-dish', 'url': 'https://pokeapi.co/api/v2/ability/44/'}]
+
+
+## FINALLY: 
+# ability_place = pokemon_data.get('abilities')
+# ability = [ x['ability'] for x in ability_place ]
+# ability_x = [ x['name'] for x in ability ]
+## RETURNS:
+#['limber', 'imposter']
